@@ -1,0 +1,14 @@
+import(Rcpp)
+import(RcppProgress)
+import(gtools)
+importFrom("graphics", "boxplot", "par", "plot")
+export(rlda.bernoulli)
+export(rlda.multinomial)
+export(rlda.binomial)
+export(plot.rlda)
+export(summary.rlda)
+S3method("plot", "rlda")
+S3method("summary", "rlda")
+useDynLib(Rlda, .registration = TRUE)
+
+
