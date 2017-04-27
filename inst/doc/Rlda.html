@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Introduction.</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h2>Introduction.</h2>
+
+<p>The Latent Dirichlet Allocation model (LDA), first proposed by @blei2003latent, has been extensively used for text-mining in multiple fields. @tsai2011tag used LDA to construct clusters of tags that represent the most common topics in blogs. @lee2010empirical compared LDA against three other text mining methods that are frequently used: latent semantic analysis, probabilistic latent semantic analysis, and the correlated topic model. The major limitation of LDA, as identified by these authors, was that the method does not consider relationship between topics as a mixed-membership clustering approach does [@erosheva2005bayesian]. Despite these limitations, however, LDA continues to be used in multiple disciplines. For instance, [@griffiths2004finding] used LDA to identify the main scientific topics in a large corpus of the Proceedings of the National Academy of Science articles.  In conservation biology, LDA has been used to identify research gaps in the conservation literature [@westgate2015text]. LDA has also been proposed as a promising method for the automatic annotation of remote sensing imagery [@lienou2010semantic]. In marketing, LDA has been used to extract information from product reviews across 15 firms in five markets over four years, enabling the identification of the most important latent dimensions of consumer decision making in each studied market [@tirunillai2014mining]. Finally, in finance, a stock market analysis system based on LDA was used to combine financial news items together with stock market data to identify and characterize major events that impact the market. This system was then used to make predictions regarding stock market behavior based on news items identified by LDA [@mahajan2008mining]. </p>
+
+<p>Despite its success in text mining across multiple fields, LDA is a model that need not be restricted to text-mining. More specifically, LDA can be viewed as a mixed membership models since each element in the sample can belong to more than one cluster (or state) simultaneously. There are a few examples of LDA being used for other purposes than text-mining. For instance, a modified version of LDA has been extensively used on genetic data to identify populations and admixed probabilities of individuals [@pritchard2000inference]. Similarly, LDA has been used in ecology to identify plant communities from tree data for the eastern United States and from a tropical forest chronosequence [@valle2014decomposing].</p>
+
+<p>The aim of this paper is to present the <strong>Rlda</strong> package for mixed-membership clustering analysis and describe this novel Bayesian model based on different types of data (i.e., multinomial, Bernoulli and Binomial), illustrating its use in a diverse set of examples. The innovative features of this model are twofold. First generalizes LDA for other types of commonly encountered categorical data. Second it enables the selection of the optimal number of clusters based on a truncated stick-breaking prior approach regularizing model results. </p>
+
+<p>This vignette is organized as follows. Section 2 and section 3 describe the mathematical formulation for the Bayesian LDA mixed-membership cluster model. Section 4 and 5 present examples of the use of the package and the conclusions, respectively.</p>
+
+<h2>Methods.</h2>
+
+<p>In the Bayesian LDA mixed-membership cluster model we postulate that each element is allocated to a single cluster, represented by a latent state variable. Specifically, consider a latent matrix \(\mathbf{Z}\) with dimension equals to \(L\times C\) where each row represents a sampling unit (\(l=1,\dots,L\)) and each column a possible state or cluster (\(c=1,\dots,C\)). The Data Generating Process postulated for this latent matrix is given by:</p>
+
+<p>\begin{equation}
+\boldsymbol Z<em>{l\cdot}\sim Multinomial(n</em>{l},\boldsymbol\theta_{l})
+\label{eq:eq0001}
+\end{equation}</p>
+
+<p>\noindent where \(n_{l}\) is total number of elements drawn for location \(l\) and \(\boldsymbol\theta_{l}=(\theta_{l1},\dots,\theta_{lC})\) is a vector of parameters representing the probability of allocation in each cluster. Following Occam&#39;s razor, we intend to create the least number of clusters as possible, which is achieved by assuming a truncated stick-breaking prior:</p>
+
+<p>\begin{equation}
+\theta<em>{lc}=V</em>{lc}\displaystyle\prod<em>{c<sup>{*}=1}<sup>{c-1}(1-V</sup></sup></em>{lc<sup>{*}})</sup>
+\label{eq:eq0002}
+\end{equation}</p>
+
+<p>\noindent where \(V_{lc}\sim Beta(1,\gamma)\) for \(c=1,\dots,C-1\) and \(V_{lC}=1\) by definition. This truncated stick-breaking prior will force the elements to be aggregated in the minimum number of clusters, given that \(\theta_{lc^{*}}\) is stochastically exponentially decreasing.</p>
+
+<p>In the second hierarchical level, we consider a matrix \(\mathbf{Y}\) with dimension equal to \(L\times S\) where each row represents a sampling unit (e.g., locations, firms, individuals, plots) and each column a variable that describes these elements. In the Bayesian LDA model for mixed-membership clustering, after integrating over the latent vector \(\mathbf{Z}_{l\cdot}\), \(Y_{ls}\) can follow one of these distributions:</p>
+
+<p>\begin{equation}
+\begin{cases}
+\mathbf{Y}<em>{l\cdot}\sim Multinomial(n</em>{l},\boldsymbol\theta<em>{i}<sup>{t}\Phi)\</sup>
+Y</em>{ls}\sim Bernoulli(\boldsymbol\theta<em>{i}<sup>{t}\boldsymbol\phi</sup></em>{s})\
+Y<em>{ls}\sim Binomial(n</em>{ls},\boldsymbol\theta<em>{i}<sup>{t}\boldsymbol\phi</sup></em>{s})
+        \label{eq:eq0003}
+\end{cases}<br/>
+\end{equation}</p>
+
+<p>\noindent for \(l=1,\dots,L\) and \(s=1,\dots,S\) possible variables. \(Y_{ls}\) represents a random variable, \(\boldsymbol Y_{l\cdot}\) is a vector with these random variables for location \(l\), \(n_{l}\) is the total number of elements in sampling unit \(l\), \(n_{ls}\) is the total number of elements in sampling unit \(l\) and variable \(s\). In these models,  \(\boldsymbol\phi_{s}=(\phi_{1s},\dots,\phi_{Cs})\) is a vector of parameters, while \(\boldsymbol\Phi\) is a  \(C\times S\) matrix of parameters, given by:</p>
+
+<p>\[
+\mathbf{\Phi}=\begin{bmatrix}
+    \phi_{11} & \phi_{12} & \dots  & \phi_{1S} \
+    \phi_{21} & \phi_{22} & \dots  & \phi_{2S} \
+    \vdots & \vdots  & \ddots & \vdots \
+    \phi_{C1} & \phi_{C2} & \dots  & \phi_{CS} 
+\end{bmatrix}
+\]</p>
+
+<p>In the last step, we specify the priors for \(\phi_{cs}\). For the multinomial model, we adopt a Dirichlet prior (i.e. \(\boldsymbol\phi_{c}\sim Dirichlet(\boldsymbol\beta)\) where \(\boldsymbol\beta=(\beta_{1},\dots,\beta_{S})\) is the hyperparameter vector). For the Bernoulli and Binomial representations, we assume that \(\phi_{cs}\) comes from a Beta distribution, (i.e., \(\phi_{cs}\sim Beta(\alpha_{0},\alpha_{1})\)).</p>
+
+<p>These models are fit using Gibbs Sampling where parameter draws are iteratively made from each full conditional distribution. From a conceptual perspective, all of these models assume the following matrix decomposition:</p>
+
+<p>\begin{equation}
+\mathbb{E}[\mathbf{Y}<em>{L\times S}]=\mathbf{K}\circ[\Theta</em>{L\times C}\Phi_{C\times S}]
+    \label{eq:eq0004} 
+\end{equation}</p>
+
+<p>where \(\mathbf{K}\) is a matrix of constants and \(\circ\) is the Hadamard product. Sparseness is ensured by forcing large \(c\) in the \(\Theta_{L\times C}\) matrix to be close to zero. For the multinomial model, the \(\mathbf{K}\) matrix contains the total number of elements in each row whereas for the Bernoulli model, this matrix is equal to the identity matrix. Finally, for the Binomial model, the \(\mathbf{K}\) matrix has the total number of trials of each binomial distribution (i.e., \(n_{ls}\)). Although there are many ways matrices can be decomposed, the key characteristic of the form of matrix decomposition we choose is that each row of \(\mathbf{\Theta}\) is comprised of probabilities that sum to one. As a result, one can interpret \(\Phi_{C\times S}\) as the matrix that contain the &ldquo;pure&rdquo; features of the data, which are then mixed by the matrix \(\Theta_{L\times C}\) and multiplied by \(\mathbf{K}\) to generate the expected data.</p>
+
+<p>##Full Conditional Distributions - FCD.
+###Bernoulli model.</p>
+
+<p>The probability of community membership status for each element \(W_{ls}\), where \(Z_{lc}=\sum_{s=1}^S I(W_{ls}=c)\), is given by: </p>
+
+<p>\begin{equation}
+\begin{array}{lll}
+p(W<em>{ls}=c<sup>{*}|&hellip;)&amp;=&amp;\frac{\theta</sup></em>{lc<sup>{<em>}}\phi_{c<sup>{</sup></em>}s}<sup>{y<em>{ls}}(1-\phi</em>{c<sup>{*}s})<sup>{1-y<em>{ls}}}{\displaystyle\sum</em>{c=1}<sup>{C}\theta<em>{lc}\phi</em>{cs}<sup>{y<em>{ls}}(1-\phi</em>{cs})<sup>{1-y_{ls}}}</sup></sup></sup></sup></sup></sup></sup>
+\end{array}
+\label{eq:eq0005} 
+\end{equation}
+Therefore, \(W_{ls}\) can be drawn from a categorical distribution. The FCD for \(V_{lc}\) is given by:</p>
+
+<p>\[
+p(V_{lc}|&hellip;)=Beta(z_{lc}+1,z_{l(c^{*}>c)}+\gamma)
+\]</p>
+
+<p>\noindent where \(z_{lc}\) is the total number of elements in location \(l\) classified into cluster \(c\), and \(z_{l(c^{*}>c)}\) is the total number of elements in location \(l\) classified in clusters larger than \(c\). This latter quantity is given by \(z_{l(c^{*}>c)}=\sum_{s=1}^{S}\sum_{c^{*}=c+1}^{C}I(w_{ls}=c^{*})\). Finally, the FCD for \(\phi_{cs}\) is given by:</p>
+
+<p>\[
+p(\phi_{cs}|&hellip;)=Beta(q_{cs}^{(1)}+\alpha_0,q_{cs}^{(0)}+\alpha_1)
+\]
+where \(q_{cs}^{(j)}\) is the number of elements assigned to group \(c\) and for which \(y_{ls}=j\) (i.e., \(q_{cs}^{(j)}=\sum_{l=1}^L {1} (w_{ls}=c,y_{ls}=j)\)).</p>
+
+<p>###Binomial model.
+For this model, we have \(n_{ls}\) elements for each sampling unit \(l\) and variable \(s\). The community membership status of the \(i\)-th element is denoted by \(W_{ils}\), where \(Z_{lc}=\sum_{s=1}^S \sum_{i=1}^{n_l}I(W_{ils}=c)\), and its probability is similar to the one for the Bernoulli model:</p>
+
+<p>\begin{equation}
+\begin{array}{lll}
+p(W<em>{ils}=c<sup>{*}|&hellip;)&amp;=&amp;\frac{\theta</sup></em>{lc<sup>{<em>}}\phi_{c<sup>{</sup></em>}s}<sup>{x<em>{ils}}(1-\phi</em>{c<sup>{*}s})<sup>{1-x<em>{ils}}}{\displaystyle\sum</em>{c=1}<sup>{C}\theta<em>{lc}\phi</em>{cs}<sup>{x<em>{ils}}(1-\phi</em>{cs})<sup>{1-x_{ils}}}</sup></sup></sup></sup></sup></sup></sup>
+\end{array}
+\label{eq:eq0006} 
+\end{equation}</p>
+
+<p>\noindent where \(x_{ils}\) are binary random variables such that \(\sum_{i=1}^{n_{ls}}x_{ils}=y_{ls}\). Therefore, \(W_{ils}\) can be drawn from a multinomial distribution. The FCD for \(\phi_{cs}\) is given by:</p>
+
+<p>\begin{equation}
+\begin{array}{lll}
+p(\phi<em>{cs}|&hellip;)= Beta\left(\displaystyle q</em>{cs}<sup>{(1)}+\alpha<em>{0},q</em>{cs}<sup>{(0)}+\alpha_{1}\right)</sup></sup>
+\end{array}
+\label{eq:eq0007} 
+\end{equation}</p>
+
+<p>\noindent where, similar to the Bernoulli model,  \(q_{cs}^{(j)}=\sum_{l=1}^{L} \sum_{i=1}^{n_{ls}}I(x_{ils}=j,w_{ils}=c)\).</p>
+
+<p>Finally, the FCD for \(V_{lc}\) is given by: </p>
+
+<p>\begin{equation}
+p\left(V<em>{lc}|&hellip;\right) = Beta(z</em>{lc}+1,z_{l(c<sup>{*}&gt;c)}+\gamma)</sup>
+    \label{eq:eq0008} 
+\end{equation}</p>
+
+<p>\noindent where \(z_{lc}\) is the total number of elements in location \(l\) classified into cluster \(c\) and \(z_{l(c^{*}>c)}\) is the total number of elements in location \(l\) classified in clusters larger than \(c\). This latter quantity is given by  \(z_{l(c^{*}>c)}=\sum_{s=1}^{S}\sum_{i=1}^{n_{ls}}\sum_{c^{*}=c+1}^{C}I(w_{ils}=c^{*})\).</p>
+
+<p>###Multinomial model.
+For the Multinomial case, if unit \(i\) in location \(l\) is associated with variable \(s\) (i.e., \(x_{il}=s\) such that \(y_{ls}=\sum_{i=1}^{n_{l}}I(x_{il}=s)\)), we have that:</p>
+
+<p>\begin{equation}
+p(W<em>{il}=c<sup>{*}|&hellip;)=\frac{\theta</sup></em>{lc<sup>{<em>}}\phi_{sc<sup>{</sup></em>}}}{\left(\theta<em>{1l}\phi</em>{s1}+\dots+\theta<em>{Cl}\phi</em>{sC}\right)}</sup>
+    \label{eq:eq0009} 
+\end{equation}</p>
+
+<p>In this equation, \(W_{il}\) is the group assignment of element i in location l, such that \(Z_{lc}=\sum_{i=1}^{n_l} {1} (W_{il}=c)\), and it can be sampled from a categorical distribution. Since we assumed a conjugate prior for \(\boldsymbol\phi_{c}\) with \(c\in\{1,\dots,C\}\), the Full Conditional Distribution for this vector of parameters is a straight-forward Dirichlet distribution: </p>
+
+<p>\begin{equation}
+p(\boldsymbol\phi<em>{c}|&hellip;)=Dirichlet([q</em>{c1}+\beta<em>{1},\dots,q</em>{cS}+\beta_{S}])
+    \label{eq:eq0010} 
+\end{equation}</p>
+
+<p>where \(q_{cs}=\sum_{l=1}^{L}\sum_{i=1}^{n_{l}}I(w_{il}=c,x_{il}=s)\).</p>
+
+<p>Finally, the FCD for \(V_{lc}\) is given by: </p>
+
+<p>\begin{equation}
+  p(V<em>{lc}|&hellip;)=Beta(z</em>{lc}+1,z_{l(c<sup>{*}&gt;c)}</sup> +\gamma)
+    \label{eq:eq0011} 
+\end{equation}</p>
+
+<p>\noindent where \(z_{l(c^{*}>c)}\) is the total number of elements in observation \(l\) classified in clusters larger than \(c\). This quantity is given by  \(z_{l(c^{*}>c)}=\sum_{i=1}^{n_{l}}\sum_{c^{*}=c+1}^{C}I(w_{il}=c^{*})\).</p>
+
+<p>##Examples. 
+In this section we present some applications of our <strong>Rlda</strong> package for mixed-membership clustering in marketing and ecology.</p>
+
+<p>###Marketing.
+It is well known that attracting a new customer is often considerably costlier than keeping current customer [@kotler2006principles]. For this reason, firms can better retain their customers if they pay careful attention to their consumers&#39; complaints and work to solve them in a satisfactory way. Therefore, our first application considers the classical LDA for a Multinomial entry in the field of Marketing. Specifically, we are interested in characterizing firms based on their consumers&#39; complaints. </p>
+
+<p>The data come from the 2015 <a href="http://catalog.data.gov/dataset/consumer-complaint-database">Consumer Complaint Database</a> and consist of complaints received by the <strong>Bureau of Consumer Financial Protection</strong> in US regarding financial products and services. In this example, we work only with credit card complaints. This dataset contains information on the number of complaints for each firm (\(L = 226\)), categorized according to the specific type of issue (\(S = 30\)). Examples of issues include  billing disputes, identity theft / fraud, and unsolicited issuance of credit card. In this case, each sampling unit represents a firm and each variable represents an issue.</p>
+
+<p>The characterization of firms provided by our analysis can be useful to reveal commonalities and differences across different firms. This can then be used by managers to identify and potentially adopt the solutions that are employed by other firms to deal with these issues.</p>
+
+<p>To use the <strong>Rlda</strong> package for the Multinomial entry, it is first necessary to create a matrix where each cell represents the total number of cases observed for each sampling unit and type of complaint.</p>
+
+<pre><code class="r">library(Rlda)
+#Read the Complaints data
+data(complaints)
+#Create the abundance matrix
+library(reshape2)
+mat1&lt;- dcast(complaints[ ,c(&quot;Company&quot;,&quot;Issue&quot;)], 
+       Company~Issue, length, 
+       value.var=&quot;Issue&quot;)
+#Create the rowname
+rownames(mat1)&lt;- mat1[,1]
+#Remove the ID variable
+mat1&lt;- mat1[,-1]
+</code></pre>
+
+<p>To use the <strong>rlda.multinomial</strong> method we need to specify several arguments. We set the maximum number of clusters (<em>n_community</em>) to 30 and the number of Gibbs Sampling iterations (<em>n_gibbs</em>) to 1000. Finally, we ask that the algorithm output the sum of the log-likelihood and the log-prior (<em>ll_prior=TRUE</em>) and we choose not to display the progress bar (<em>display_progress=FALSE</em>):</p>
+
+<pre><code class="r">#Set seed
+set.seed(9292)
+#Hyperparameters for each prior distribution
+beta&lt;- rep(1,ncol(mat1))
+gamma&lt;- 0.01
+#Execute the LDA for the Multinomial entry
+res&lt;- rlda.multinomial(data=mat1, n_community=30, beta, gamma, n_gibbs=1000,
+                       ll_prior=TRUE, display_progress=FALSE)
+</code></pre>
+
+<p>We can visually evaluate the convergence by examining:</p>
+
+<pre><code class="r">#Get the logLikelihood
+ll&lt;- res$logLikelihood
+#Plot the log-likelihood
+plot(ll, type=&quot;l&quot;, xlab=&quot;Iterations&quot;,
+          ylab=&quot;Log(likel.)+log(prior)&quot;)
+abline(v=700,col=&#39;grey&#39;)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-3"/></p>
+
+<p>Samples of our parameter estimates are given in the <em>Theta</em> and <em>Phi</em> matrices, where each line in these matrices contains the result of a Gibbs iteration. Thus, parameter estimates can be obtained by averaging the results in each column of these matrices after discarding the burn-in iterations. This can be quickly done using the function summary, as illustrated below:</p>
+
+<pre><code class="r">#Get the Theta Estimate
+Theta&lt;-summary(res)$Theta
+</code></pre>
+
+<p>The <em>Theta</em> matrix has a sparse structure since our truncated stick-breaking prior tends to reduce the total number of dominant clusters. In this matrix, each cell contains the estimated probability of the \(l\)-th firm being allocated to cluster \(c\). A useful way to explore the results from this matrix is using interactive 3D graphics:</p>
+
+<pre><code class="r">library(&#39;rgl&#39;)
+library(&#39;car&#39;)
+scatter3d(x=Theta[,&#39;Cluster1&#39;], y=Theta[,&#39;Cluster2&#39;], z=Theta[,&#39;Cluster3&#39;],
+             surface=F, xlab=&#39;Cluster 1&#39;, ylab=&#39;Cluster 2&#39;, zlab=&#39;Cluster 3&#39;,
+             labels=rownames(Theta), id.n=20)
+</code></pre>
+
+<h3>Ecology.</h3>
+
+<p>In many ecological studies, it is not possible to determine the total number of individuals per species in each sampling unit. As a result, these data are often presented as or summarized into binary presence/absence matrices (1 and 0, respectively) [@pearce2006modelling].</p>
+
+<p>In this example we used <em>data(&ldquo;presence&rdquo;)</em>, which includes presence/absence information on 13 species at 386 forested locations [@moisen2006predicting]. We analyze these data using the <em>rlda.bernoulli</em> S3 method.</p>
+
+<pre><code class="r">#Load data
+data(presence)
+#Set seed
+set.seed(9842)
+#Hyperparameters for each prior distribution
+gamma &lt;-0.01
+alpha0&lt;-0.01
+alpha1&lt;-0.01
+#Execute the LDA for the Binomial entry
+res&lt;-rlda.bernoulli(presence, 10, alpha0, alpha1, gamma,
+                    5000, TRUE, FALSE)
+</code></pre>
+
+<p>We can visually evaluate the cluster distribution across species, after the <em>burn-in phase</em>:</p>
+
+<pre><code class="r">#Burnout
+Phi&lt;-summary(res, burnin=0.1, silent=TRUE)$Phi
+#Color
+library(RColorBrewer)
+myColor&lt;-brewer.pal(n = 10, name = &quot;RdBu&quot;)
+#Labels
+stars(Phi,col.segments=myColor,scale=TRUE,
+      draw.segments=TRUE,ncol=4,flip.labels=FALSE,cex=0.6)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-7"/></p>
+
+<h2>Conclusion.</h2>
+
+<p>The goal of this vignette was to describe the Bayesian LDA model for mixed membership clustering based on different types of discrete data. We  have demonstrated how to use the model for Multinomial entry in the Marketing example and Bernoulli trial using ecological data.</p>
+
+<p>One of the main properties of the model presented here is the fact that this model adopts the truncated stick-breaking prior which enables the selection of the optimal number of clusters by regularizing model results. The next step in the development of the model presented here is the possibility to work with explanatory variables within our algorithms, which can be useful to make inference on the drivers of the probability of each cluster.</p>
+
+<p>##Appendix.
+In this Appendix we provide the derivation for the  Full Conditional Distributions associated with each model. </p>
+
+<p>###Bernoulli model.
+For \(W_{ls}\):</p>
+
+<p>\[p(W_{ls}=c^{*}|&hellip;)=k\times Cat(W_{ls}=c^{*}| \boldsymbol{\theta_{l}}) \times Bernoulli(y_{ls}|\phi_{c^{*}s})\]
+\[=k\times\theta_{lc^{*}}\times\phi_{c^{*}s}^{y_{ls}}(1-\phi_{c^{*}s})^{1-y_{ls}}\]</p>
+
+<p>Since \(W_{ls}\) is a categorical random variable with support in \(\mathcal{Z}=(1,2,\dots,C)\), the sum of the probabilities for all elements must equal one. Therefore, the constant \(k\) is given by:
+\[k=\sum_{c=1}^C \theta_{lc}\times\phi_{cs}^{y_{ls}}(1-\phi_{cs})^{1-y_{ls}}\]
+As a result, \(W_{ls}\) can be sampled from a categorical distribution.</p>
+
+<p>For \(V_{ls}\):</p>
+
+<p>\[p(V_{ls}|&hellip;)\propto Binomial(z_{lc}|z_{lc}+z_{l(c^{*}>c)},V_{lc})\times Beta(V_{lc}|1,\gamma)\]
+\[\propto V_{lc}^{z_{lc}}(1-V_{lc})^{z_{l(c^{*}>c)}}\times(1-V_{lc})^{\gamma-1}\]
+\[\propto V_{lc}^{(z_{lc}+1)-1}(1-V_{lc})^{(z_{l(c^{*}>c)}+\gamma)-1}\]
+\[p(V_{ls}|&hellip;)=Beta(z_{lc}+1,z_{l(c^{*}>c)}+\gamma)\]</p>
+
+<p>For \(\phi_{cs}\):</p>
+
+<p>\[p(\phi_{cs}|&hellip;)\propto [\prod_{l=1}^L Bernoulli(y_{ls}|\phi_{cs})^{I(w_{ls}=c)}]\times Beta(\phi_{cs}|\alpha_0,\alpha_1)\]
+\[\propto [\prod_{l=1}^L \phi_{cs}^{I(w_{ls}=c,y_{ls}=1)}(1-\phi_{cs})^{I(w_{ls}=c,y_{ls}=0)}] \times \phi_{cs}^{\alpha_0-1}(1-\phi_{cs})^{\alpha_1-1}\]
+\[\propto \phi_{cs}^{\sum_{l=1}^LI(w_{ls}=c,y_{ls}=1)+\alpha_0-1}(1-\phi_{cs})^{\sum_{l=1}^LI(w_{ls}=c,y_{ls}=0)+\alpha_1-1}\]
+\[p(\phi_{cs}|&hellip;)=Beta(q_{cs}^{(1)}+\alpha_0,q_{cs}^{(0)}+\alpha_1)\]</p>
+
+<p>\noindent where \(q_{cs}^{(j)}=\sum_{l=1}^LI(w_{ls}=c,y_{ls}=j)\).</p>
+
+<p>###Binomial model.
+For \(W_{ils}\):
+\[p(W_{ils}=c^{*}|&hellip;)=k\times Cat(W_{ils}=c^{*}|\boldsymbol{\theta_{l}})\times Bernoulli(x_{ils}|\phi_{c^{*}s})\]
+\[=k\times\theta_{lc^{*}}\times\phi_{c^{*}s}^{x_{ils}}(1-\phi_{c^{*}s})^{1-x_{ils}}\]</p>
+
+<p>Since \(W_{ils}\) is a categorical random variable with support in \(\mathcal{Z}=(1,2,\dots,C)\), the sum of the probabilities for all elements must equal one. Therefore, the constant \(k\) is given by:
+\[k=\sum_{c=1}^C \theta_{lc}\times\phi_{cs}^{x_{ils}}(1-\phi_{cs})^{1-x_{ils}}\]
+As a result, \(W_{ils}\) can be sampled from a categorical distribution.</p>
+
+<p>For \(V_{ls}\):</p>
+
+<p>\[p(V_{ls}|&hellip;)\propto Binomial(z_{lc}|z_{lc}+z_{l(c^{*}>c)},V_{lc})\times Beta(V_{lc}|1,\gamma)\]
+\[\propto V_{lc}^{z_{lc}}(1-V_{lc})^{z_{l(c^{*}>c)}}\times(1-V_{lc})^{\gamma-1}\]
+\[\propto V_{lc}^{(z_{lc}+1)-1}(1-V_{lc})^{(z_{l(c^{*}>c)}+\gamma)-1}\]
+\[p(V_{ls}|&hellip;)=Beta(z_{lc}+1,z_{l(c^{*}>c)}+\gamma)\]</p>
+
+<p>For \(\phi_{cs}\):</p>
+
+<p>\[p(\phi_{cs}|&hellip;)\propto [\prod_{l=1}^L \prod_{i=1}^{n_{ls}} Bernoulli(x_{ils}|\phi_{cs})^{I(w_{ils}=c)}]\times Beta(\phi_{cs}|\alpha_0,\alpha_1)\]
+\[\propto [\prod_{l=1}^L \prod_{i=1}^{n_{ls}} \phi_{cs}^{I(w_{ils}=c,x_{ils}=1)}(1-\phi_{cs})^{I(w_{ils}=c,x_{ils}=0)}] \times \phi_{cs}^{\alpha_0-1}(1-\phi_{cs})^{\alpha_1-1}\]
+\[\propto \phi_{cs}^{\sum_{l=1}^L \sum_{i=1}^{n_{ls}} I(w_{ils}=c,x_{ils}=1)+\alpha_0-1}(1-\phi_{cs})^{\sum_{l=1}^L \sum_{i=1}^{n_{ls}} I(w_{ils}=c,x_{ils}=0)+\alpha_1-1}\]
+\[p(\phi_{cs}|&hellip;)=Beta(q_{cs}^{(1)}+\alpha_0,q_{cs}^{(0)}+\alpha_1)\]
+\noindent where \(q_{cs}^{(j)}=\sum_{l=1}^L \sum_{i=1}^{n_{ls}} I(w_{ls}=c,y_{ls}=j)\).</p>
+
+<p>###Multinomial model.
+For \(W_{il}\):</p>
+
+<p>\[p(W_{il}=c^*|&hellip;)=k\times Cat(W_{il}=c^*|\boldsymbol{\theta_l})\times Cat(x_{il}=s|\phi_{sc^*})\]
+\[=k\times \theta_{lc^*}\phi_{sc^*}\]
+Since \(W_{il}\) is a categorical random variable with support in \(\mathcal{Z}=(1,2,\dots,C)\), the sum of the probabilities for all elements must equal one. Therefore, the constant \(k\) is given by:</p>
+
+<p>\[k=\sum_{c=1}^C \theta_{lc}\times\phi_{cs}\]</p>
+
+<p>As a result, \(W_{il}\) can be sampled from a categorical distribution.</p>
+
+<p>For \(V_{ls}\):</p>
+
+<p>\[p(V_{ls}|&hellip;)\propto Binomial(z_{lc}|z_{lc}+z_{l(c^{*}>c)},V_{lc})\times Beta(V_{lc}|1,\gamma)\]
+\[\propto V_{lc}^{z_{lc}}(1-V_{lc})^{z_{l(c^{*}>c)}}\times(1-V_{lc})^{\gamma-1}\]
+\[\propto V_{lc}^{(z_{lc}+1)-1}(1-V_{lc})^{(z_{l(c^{*}>c)}+\gamma)-1}\]
+\[p(V_{ls}|&hellip;)=Beta(z_{lc}+1,z_{l(c^{*}>c)}+\gamma)\]
+For \(\boldsymbol{\phi_c}\):
+\[p(\boldsymbol{\phi_c}|&hellip;)\propto [\prod_{l=1}^L \prod_{i=1}^{n_l}Cat(x_{il}|\boldsymbol{\phi_c})^{I(w_{il}=c)}]\times Dirichlet(\boldsymbol{\phi_c}|\boldsymbol{\beta})\]
+\[\propto [\prod_{l=1}^L \prod_{i=1}^{n_l} \phi_{1c}^{I(x_{il}=1,w_{li}=c)}\times&hellip;\times\phi_{Sc}^{I(x_{il}=S,w_{li}=c)}]\times\phi_{1c}^{\beta_1-1}\times&hellip;\times\phi_{Sc}^{\beta_S-1}\]
+\[\phi_{1c}^{\sum_{l=1}^L \sum_{i=1}^{n_l} I(x_{il}=1,w_{li}=c) +\beta_1-1}\times&hellip;\times\phi_{Sc}^{\sum_{i=1}^{n_l} I(x_{il}=S,w_{li}=c) + \beta_S-1}\]
+\[p(\phi_c|&hellip;)= Dirichlet([q_{c1}+\beta_1,&hellip;,q_{cS}+\beta_S])\]
+\noindent where \(q_{cs}=\sum_{i=1}^{n_l} I(x_{il}=s,w_{li}=c)\).</p>
+
+<h2>References.</h2>
+
+</body>
+
+</html>
