@@ -1,26 +1,29 @@
-\name{rlda.bernoulli}
-\alias{rlda.bernoulli}
-\title{LDA with bernoulli entry and Stick-Breaking prior.}
+\name{rlda.bernoulliMH}
+\alias{rlda.bernoulliMH}
+\title{LDA with bernoulli entry with Metropolis-Hasting.}
 \description{
   This method implements the Latent Dirichlet Allocation with
   Stick-Breaking prior for bernoulli data.
-  \code{rlda.bernoulli} works with binary data.frame.
+  \code{rlda.bernoulliMH} works with binary data.frame.
 }
 \usage{
-  rlda.bernoulli(data, n_community, alpha0, alpha1, gamma,
-  n_gibbs, ll_prior = TRUE, display_progress = TRUE)
+  rlda.bernoulliMH(data, loc.id, n_community, alpha0, alpha1, gamma,
+  n_gibbs, nadapt, ll_prior = TRUE, display_progress = TRUE)
 }
 \arguments{
   \item{data}{A binary data.frame where each row is a sampling unit
     (i.e. Plots, Locations, Time, etc.) and each column is a categorical
     type of element (i.e. Species, Firms, Issues, etc.). The elements inside
     this data.frame must be Zeros and Ones.}
+  \item{loc.id}{Vector column from data with the repeated locations for
+  Presence and Absence data.}
   \item{n_community}{Total number of communities to return. It must be less than
   the total number of columns inside the \code{data} data.frame.}
   \item{alpha0}{Hyperparameter associated with the Beta prior Beta(alpha0, alpha1).}
   \item{alpha1}{Hyperparameter associated with the Beta prior Beta(alpha0, alpha1).}
   \item{gamma}{Hyperparameter associated with the Stick-Breaking prior.}
   \item{n_gibbs}{Total number of Gibbs Samples.}
+  \item{nadapt}{Total number of Adaptations.}
   \item{ll_prior}{boolean scalar indicating \code{TRUE} if the log-likelihood
   must be computed using also the priors or \code{FALSE} otherwise.}
   \item{display_progress}{boolean scalar \code{TRUE} if the
@@ -30,7 +33,7 @@
       A R List with three elements:
   \item{Theta}{The individual probability for each observation
   (ex: location) belong in each cluster (ex: community). It is a matrix
-  with dimension equal \code{n_gibbs} by \code{nrow(data) * n_community}}
+  with dimension equal \code{n_gibbs} by \code{length(unique(loc.id)) * n_community}}
   \item{Phi}{The individual probability for each variable
   (ex: Specie) belong in each cluster (ex: community). It is a matrix
   with dimension equal \code{n_gibbs} by \code{ncol(data) * n_community}}
@@ -38,13 +41,13 @@
   each Gibbs Sample.}
 }
 \details{
-  \code{rlda.bernoulli} uses a modified Latent Dirichlet Allocation method
+  \code{rlda.bernoulliMH} uses a modified Latent Dirichlet Allocation method
   to construct Mixed-Membership Clusters using Bayesian Inference.
   The \code{data} must be a non-empty data.frame with the binaries values
   Zero or Ones for each variable (column) in each observation (row).
 }
 \note{The \code{Theta} and \code{Phi} matrix can be obtained for the i-th gibbs
-sampling using \code{matrix(Theta[i,], nrow = nrow(data), ncol = n_community)} and
+sampling using \code{matrix(Theta[i,], nrow = length(unique(loc.id)), ncol = n_community)} and
 \code{matrix(Phi[i,], nrow = n_community, ncol = ncol(data))}, respectively.}
 \references{
   \itemize{
@@ -95,9 +98,9 @@ sampling using \code{matrix(Theta[i,], nrow = nrow(data), ncol = n_community)} a
 		alpha0 <- 0.01
 		alpha1 <- 0.01
 		# Execute the LDA for the Bernoulli entry
-		res <- rlda.bernoulli(data = presence, n_community = 10,
-		alpha0 = alpha0, alpha1 = alpha1, gamma = gamma,
-		n_gibbs = 5000,ll_prior = TRUE, display_progress = TRUE)
-	}
+		res <- rlda.bernoulliMH(data=presence,loc.id=seq(1,nrow(presence)),
+		n_community=5, alpha0=0.01, alpha1=0.99, gamma=0.1,
+    n_gibbs=1000, nadapt=1000, ll_prior = TRUE, display_progress = TRUE)
+ 	}
 }
 

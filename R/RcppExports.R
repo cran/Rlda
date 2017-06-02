@@ -97,3 +97,11 @@ lda_bernoulli <- function(data, n_community, alpha0, alpha1, gamma, n_gibbs, ll_
 #''[[Rcpp::export]]
 NULL
 
+convertSBtoNormal <- function(vmat, ncol, nrow, prod) {
+    .Call('Rlda_convertSBtoNormal', PACKAGE = 'Rlda', vmat, ncol, nrow, prod)
+}
+
+aggregatesum <- function(Tobesum, nind, nobs, ind) {
+    .Call('Rlda_aggregatesum', PACKAGE = 'Rlda', Tobesum, nind, nobs, ind)
+}
+
