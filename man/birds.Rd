@@ -11,7 +11,7 @@ This dataset is a subset of the Breeding Bird Survey.
 \format{
   A data frame with 13608 observations and 384 variables.
   \describe{
-    \item{\code{loc.id}}{Location index}
+\item{\code{loc.id}}{Location index}
     \item{\code{aou530}}{Bird specie 530 presence (1) or absence (0)}
     \item{\code{aou540}}{Bird specie 540 presence (1) or absence (0)}
     \item{\code{aou590}}{Bird specie 590 presence (1) or absence (0)}
