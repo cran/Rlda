@@ -1,22 +1,19 @@
-\name{print}
-\alias{print}
-\alias{print.rlda}
-\title{Print information with respect to the model.}
-\description{
-Takes a \code{rlda} object produced by \code{rlda.binomial}, \code{rlda.bernoulli} or \code{rlda.multinomial} and produces a print from it.
+\name{rlda2mcmc}
+\alias{rlda2mcmc}
+\alias{rlda2mcmc.rlda}
+\title{Conversion between rlda to mcmc object from coda package}
+\description{Convert rlda object to mcmc object from coda package
+The \code{rlda2mcmc} function create a list of two elements incluing the Theta matrix and Phi matrix in a mcmc class.
 }
 \usage{
-  \method{print}{rlda}(x, burnin=0.1, ...)
+  \method{rlda2mcmc}{rlda}(object, ...)
 }
 \arguments{
-  \item{x}{a \code{rlda} object as produced by \code{rlda.binomial}, \code{rlda.bernoulli} or \code{rlda.multinomial}.}
-  \item{burnin}{a percentual of burn-in observations must be a number between 0 and 1. The default value is \code{burnin=0.1}}
+  \item{object}{a \code{rlda} object created by \code{rlda.binomial}, \code{rlda.bernoulli} or \code{rlda.multinomial} function.}
   \item{...}{ other arguments may be useful.}
 }
 
-\details{
-Print the Gibbs Samping results.
-}
+\seealso{\code{\link{rlda.binomial}}, \code{\link{rlda.bernoulli}},\code{\link{rlda.multinomial}} }
 
 \author{
   \itemize{
@@ -34,12 +31,10 @@ Print the Gibbs Samping results.
   }
 }
 
-\keyword{print}
+\keyword{rlda2mcmc}
 \keyword{LDA}
 \keyword{Fuzzy}
 \keyword{Cluster}
-
-\seealso{\code{\link{rlda.binomial}}, \code{\link{rlda.bernoulli}},\code{\link{rlda.multinomial}} }
 
 \examples{
 \dontrun{
@@ -54,7 +49,7 @@ alpha1<-0.01
 #Execute the LDA for the Binomial entry
 res<-rlda.bernoulli(presence, 10, alpha0, alpha1, gamma,
                     5000, TRUE, FALSE)
-#print method
-print(res)
+#rlda2mcmc the results
+listParams <- rlda2mcmc(res)
 }
 }
