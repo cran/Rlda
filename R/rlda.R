@@ -1,3 +1,153 @@
+aggregate.data.complete=function(dat,id){
+  dat1=dat[order(dat[,id]),]
+  nloc=max(dat1[,id])
+
+  ind=which(colnames(dat1)==id)
+
+  res=matrix(NA,nloc,ncol(dat1)-1)
+  n=rep(NA,nloc)
+  for (i in 1:nloc){
+    cond=dat1[,id]==i
+    dat.tmp=dat1[cond,-ind]
+    n[i]=nrow(dat.tmp)
+    if (n[i]>1)  dat.tmp=colSums(dat.tmp)
+    if (n[i]==1) dat.tmp=as.numeric(dat.tmp)
+    res[i,]=dat.tmp
+  }
+  colnames(res)=colnames(dat1[,-ind])
+  loc.id=unique(dat1[,id])
+  list(dat=res,loc.id=id,n=n)
+}
+
+#' @name rlda.bernoulli
+#' @title Gibbs Sampling for LDA Presence and Absence
+#' @description Compute the Gibbs Sampling for LDA Presence and Absence
+#' @param data - DataFrame with Presence and Absecence (Zeros and Ones)
+#' @param loc.id - Location ID variable
+#' @param n_community - Number of communities
+#' @param alpha0 - Hyperparameter Beta(alpha0,alpha1)
+#' @param alpha1 - Hyperparameter Beta(alpha0,alpha1)
+#' @param gamma - Hyperparameter  Beta(1,gamma)
+#' @param n_gibbs - Total number of Gibbs Samples
+#' @param ll_prior - Likelihood compute with Priors ?
+#' @param bool display_progress=true - Should I Show the progressBar ?
+#' @return Rlda object
+#' @export
+rlda.fastbernoulli <- function(data, loc.id, n_community, alpha0, alpha1, gamma, n_gibbs, ll_prior = TRUE, display_progress = TRUE) {
+  #----------------------------------------------------------------
+  get.theta=function(nlk,gamma,ncomm,nloc){
+    vmat=matrix(NA,nloc,ncomm)
+    for (i in 1:(ncomm-1)){
+      if (i==(ncomm-1)) cumsoma=nlk[,ncomm]
+      if (i< (ncomm-1)) cumsoma=rowSums(nlk[,(i+1):ncomm])
+      vmat[,i]=rbeta(nloc,nlk[,i]+1,cumsoma+gamma)
+    }
+    vmat[,ncomm]=1
+    convertVtoTheta(vmat,rep(1,nloc))
+  }
+
+
+  # Create a stop point
+  stopifnot(inherits(data, "data.frame"))
+  stopifnot(inherits(n_community, "numeric"))
+  stopifnot(inherits(alpha0, "numeric"))
+  stopifnot(inherits(alpha1, "numeric"))
+  stopifnot(inherits(gamma, "numeric") | is.na(gamma))
+  stopifnot(inherits(n_gibbs, "numeric"))
+  stopifnot(inherits(ll_prior, "logical"))
+  stopifnot(inherits(display_progress, "logical"))
+
+  tmp=aggregate.data.complete(data,loc.id)
+
+  y=tmp$dat
+  n=tmp$n
+
+  #useful stuff
+  ind=which(colnames(data)==loc.id)
+  dat1=data.matrix(data[,-ind])
+  loc.id=data[,loc.id]
+  nloc=max(loc.id)
+  nspp=ncol(dat1)
+  ncomm=n_community
+  nlinhas=nrow(dat1)
+  hi=0.999999
+  lo=0.000001
+
+  theta=matrix(1/ncomm,nloc,ncomm)
+  phi=matrix(0.5,ncomm,nspp)
+  z=matrix(sample(1:ncomm,size=nlinhas*nspp,replace=T),nlinhas,nspp)
+
+  #priors
+  a.phi=alpha0
+  b.phi=alpha1
+
+  #gibbs details
+  ngibbs=n_gibbs
+  theta.out=matrix(NA,ngibbs,ncomm*nloc)
+  phi.out=matrix(NA,ngibbs,ncomm*nspp)
+  llk=rep(NA,ngibbs)
+  options(warn=2)
+  if(display_progress) pb   <- txtProgressBar(1, ngibbs, style=3)
+  for (i in 1:ngibbs){
+    #sample z
+    rand.u=matrix(runif(nlinhas*nspp),nlinhas,nspp)
+    z=samplez(log(theta), log(1-phi), log(phi), dat1, loc.id,rand.u, ncomm, nloc)
+
+    #calculate summaries
+    tmp=getks(z=z, ncommun=ncomm, dat=dat1)
+    nks1=tmp$nks1
+    nks0=tmp$nks0
+    nlk=getlk(z=z,locid=loc.id, ncommun=ncomm, nloc=nloc)
+
+    #get parameters
+    theta=get.theta(nlk,gamma,ncomm,nloc) #theta.true#
+    theta[theta>hi]=hi; theta[theta<lo]=lo
+    phi=matrix(rbeta(nspp*ncomm,nks1+a.phi,nks0+b.phi),ncomm,nspp) #phi.true#
+    phi[phi>hi]=hi; phi[phi<lo]=lo
+    prob=theta%*%phi
+    prob[prob>hi]=hi; prob[prob<lo]=lo
+    prob1=prob[loc.id,]
+
+    #store results
+    llk[i]=sum(dat1*log(prob1)+(1-dat1)*log(1-prob1))
+    theta.out[i,]=theta
+    phi.out[i,]=phi
+
+    if(display_progress) setTxtProgressBar(pb, i)
+  }
+  res<-list()
+  #Log-Likelihood
+  res$logLikelihood<-llk
+  #Theta
+  res$Theta<-theta.out
+  #Phi
+  res$Phi<-phi.out
+  # Type distribution
+  res$type <- "Bernoulli"
+  # Number of communities
+  res$n_community <- n_community
+  # Sample size
+  res$N <- nrow(data)
+  # Covariates
+  res$Species <- colnames(data)
+  res$Species <- res$Species [! res$Species %in% loc.id]
+  # Alpha0
+  res$alpha0 <- alpha0
+  # Alpha1
+  res$alpha1 <- alpha1
+  # Gamma
+  res$gamma <- gamma
+  # Number of gibbs
+  res$n_gibbs <- n_gibbs
+  # Species
+  res$colnames <- colnames(data)
+  # Locations
+  res$rownames <- rownames(data)
+  # Create the class
+  class(res) <- c("rlda", "list")
+  return(res)
+}
+
 #' @name rlda.bernoulli
 #' @title Gibbs Sampling for LDA Presence and Absence
 #' @description Compute the Gibbs Sampling for LDA Presence and Absence
@@ -84,7 +234,7 @@ rlda.bernoulliMH <- function(data, loc.id, n_community, alpha0, alpha1, gamma, n
   ngibbs <- n_gibbs
 
   # initial values convert from a bunch of bernoulli to a single binomial per location
-  tmp = aggregate.data(dat)
+  tmp = aggregate.data(dat, loc.id)
   y = tmp$dat
   loc.id = tmp$loc.id
   nspp = ncol(y)
@@ -287,6 +437,81 @@ rlda.binomial <- function(data, pop, n_community, alpha0, alpha1, gamma, n_gibbs
 }
 
 
+
+rlda.binomialVB <- function(data, loc.id, n_community, alpha0, alpha1, gamma, maxit=1000, thresh=0.0001) {
+  # Create a stop point
+  stopifnot(inherits(data, "data.frame"))
+  stopifnot(inherits(n_community, "numeric"))
+  stopifnot(inherits(alpha0, "numeric"))
+  stopifnot(inherits(alpha1, "numeric"))
+  stopifnot(inherits(gamma, "numeric") | is.na(gamma))
+  stopifnot(inherits(maxit, "numeric"))
+  stopifnot(inherits(thresh, "numeric"))
+
+  #Initialize
+  delta_elbo<-Inf
+  nobs<-max(table(data[,loc.id]))
+
+  tmp<-as.matrix(data)
+  dat=aggregate.data(tmp, loc.id)
+  nloc=nrow(dat)
+  nspp=ncol(dat)
+
+  m0=m1=array(abs(rnorm(nloc*nspp*n_community)),dim=c(nloc,nspp,n_community),
+              dimnames=list(paste('loc',1:nloc,sep=''),
+                            paste('spp',1:nspp,sep=''),
+                            paste('comm',1:n_community,sep='')))
+  a=b=matrix(1,nloc,n_community)
+  c=d=matrix(1,n_community,nspp)
+
+
+  # Execute the LDA for the Binomial entry
+  res <- lda_binomial_var(dat, n_community, maxit, nobs, gamma, alpha0, alpha1, thresh, delta_elbo, m1, m0)
+  # Type distribution
+  res$type <- "Binomial Variational"
+  # Number of communities
+  res$n_community <- n_community
+  # Sample size
+  res$N <- nrow(data)
+  # Covariates
+  res$Species <- colnames(data)[!colnames(data) %in% loc.id]
+  # Alpha0
+  res$alpha0 <- alpha0
+  # Alpha1
+  res$alpha1 <- alpha1
+  # Gamma
+  res$gamma <- gamma
+  # Number of gibbs
+  res$n_gibbs <- maxit
+  # Locations
+  res$rownames <- rownames(data)
+  names(res)[3]<-"logLikelihood"
+  # Create the class
+  class(res) <- c("rlda", "list")
+  return(res)
+}
+
+
+
+
+aggregate.data=function(dat,id){
+  ind<-which(colnames(dat)==id)
+  locid=dat[,ind]
+  dat1=dat[,-ind]
+
+  nloc=max(locid)
+  nspp=ncol(dat1)
+  res<- matrix(NA,nloc,nspp)
+  for (i in 1:nloc){
+    cond=locid==i
+    res[i,]=colSums(dat1[cond,])
+  }
+  return(res)
+}
+
+
+
+
 #' @name rlda.binomialMH
 #' @title Compute the Gibbs Sampling for LDA Binomial for Remote Sensing
 #' @description Compute the Gibbs Sampling for LDA Binomial
@@ -407,6 +632,9 @@ rlda.binomialMH <- function(data, pop, n_community, alpha0, alpha1, gamma, n_gib
 #' @param x rlda object
 #' @param ... ignored
 #' @export
+#'
+#'
+
 plot.rlda <- function(x, burnin = 0.1, maxCluster = NA, ...) {
   old.par <- par(no.readonly = T)
   stopifnot(inherits(burnin, "numeric"))
@@ -414,7 +642,13 @@ plot.rlda <- function(x, burnin = 0.1, maxCluster = NA, ...) {
   # Burn-in
   i <- ceiling(x$n_gibbs * burnin)
   # Plot the log-likelihood
-  plot(x$logLikelihood[i:x$n_gibbs], type = "l", xlab = "Gibbs iteration", ylab = "Log-Likelihood", main = "Log-Likelihood")
+  if(x$type == "Binomial Variational"){
+    plot(x$logLikelihood[i:x$n_gibbs], type = "l", xlab = "Variational iteration", ylab = "ELBO", main = "ELBO")
+  }
+  else{
+    plot(x$logLikelihood[i:x$n_gibbs], type = "l", xlab = "Gibbs iteration", ylab = "Log-Likelihood", main = "Log-Likelihood")
+  }
+
   par(ask = T)
   # Plot the box-plot Theta
   if (is.na(maxCluster))
@@ -442,10 +676,6 @@ plot.rlda <- function(x, burnin = 0.1, maxCluster = NA, ...) {
     plot(phi[i,],main=rownames(phi)[i],type='h',ylim=c(0,1),
          xaxt='n',xlab='',ylab='')
   }
-  #pal <- grey((nrow(phi):0)/nrow(phi))
-  #phi<-t(phi)
-  #barplot(phi, main = "Phi matrix", ylab = "Probability", col = pal)
-  #legend("topright", inset = c(-0.38, 0), legend = rownames(phi), fill = pal, title = "Clusters")
   invisible(x)
   par(old.par)
 }
@@ -873,3 +1103,8 @@ generateBinomialLDA.rlda<-function(seed0, community, variables, observations, to
 
   return(list("Theta"=Theta, "Phi"=Omega, "Pop"=POP, "Data"= DATA))
 }
+
+
+
+
+
