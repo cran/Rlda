@@ -226,9 +226,9 @@ NumericMatrix mmultBinomial(const NumericMatrix& m1, const NumericMatrix& m2){
   if (m1.ncol() != m2.nrow()) stop ("Incompatible matrix dimensions");
   NumericMatrix out(m1.nrow(),m2.ncol());
   NumericVector rm1, cm2;
-  for (size_t i = 0; i < m1.nrow(); ++i) {
+  for (int i = 0; i < (int) m1.nrow(); ++i) {
     rm1 = m1(i,_);
-    for (size_t j = 0; j < m2.ncol(); ++j) {
+    for (int j = 0; j < (int) m2.ncol(); ++j) {
       cm2 = m2(_,j);
       out(i,j) = std::inner_product(rm1.begin(), rm1.end(), cm2.begin(), 0.);
     }
@@ -537,10 +537,10 @@ List lda_binomial(DataFrame data,DataFrame pop, int n_community, double alpha0, 
 
     //Generate gamma MH
     if(bgamma){
-      if (g%50==0 & g<500){
+      if ((g%50==0) & (g<500)){
         double z = acept/50;
-        if (z>0.4 & jump<100)   jump=jump*2;
-        if (z<0.1 & jump>0.001) jump=jump*0.5;
+        if ((z>0.4) & (jump<100))   jump=jump*2;
+        if ((z<0.1) & (jump>0.001)) jump=jump*0.5;
         gamma = gammaMHBinomial(vMat, gamma, jump,acept);
       }
     }
@@ -647,10 +647,10 @@ List lda_binomial_burn(DataFrame data,DataFrame pop, int n_community, double alp
 
     //Generate gamma MH
     if(bgamma){
-      if (g%50==0 & g<500){
+      if ((g%50==0) & (g<500)){
         double z = acept/50;
-        if (z>0.4 & jump<100)   jump=jump*2;
-        if (z<0.1 & jump>0.001) jump=jump*0.5;
+        if ((z>0.4) & (jump<100))   jump=jump*2;
+        if ((z<0.1) & (jump>0.001)) jump=jump*0.5;
         gamma = gammaMHBinomial(vMat, gamma, jump,acept);
       }
     }
