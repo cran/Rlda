@@ -533,8 +533,8 @@ List lda_bernoulli_burn(DataFrame data, int n_community, double alpha0, double a
     if(bgamma){
       if ((g%50==0) & (g<500)){
         double z = acept/50;
-        if (z>0.4 & jump<100)   jump=jump*2;
-        if (z<0.1 & jump>0.001) jump=jump*0.5;
+        if ((z>0.4) & (jump<100))   jump=jump*2;
+        if ((z<0.1) &( jump>0.001)) jump=jump*0.5;
         gamma = gammaMHPresenceAbsence(vMat, gamma, jump,acept);
       }
     }
