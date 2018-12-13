@@ -1,7 +1,7 @@
-6601421d1f8f371e91a82c311bb995b7 *DESCRIPTION
-147bf4ac1b2610efe40a8ae8403c758f *NAMESPACE
-b5e7f7c27d6e358f0560ae2367b3986a *NEWS
-b27b8c29ba28bca8601d4043a48239cb *R/RcppExports.R
+2865a583e50bcd917f1adcd4691624d5 *DESCRIPTION
+9c4de70f03d97f67df6036274807b3ea *NAMESPACE
+30dd5e222b5510ce417d0a04ebf073a5 *NEWS
+a0345712b4dc9190f526d6427f461413 *R/RcppExports.R
 e84cd467b99ecb0f424efc4fec208ca7 *R/Utils.R
 26c662470faf533bfd1b2526737d3c0a *R/data.R
 26619892a57ff29e02bd0633e31dbce1 *R/regressionLda.R
@@ -42,7 +42,7 @@ dd702ddef36b75f3cce1849dd01d4f44 *src/Abundance.cpp
 6102d6518b91bad20b9cf1f1b3eda673 *src/AbundanceCovariate.cpp
 5b2d4742baa22f6ec6917903e71b096a *src/Binomial.cpp
 e3de8683c4843268ee6f945df9b72f77 *src/BinomialVariational.cpp
-189087126049e969612cebc6f8a59615 *src/Makevars
+2a6f9e9e044a78154d3cfda5936d6f48 *src/Makevars
 5fe147d940d1b91bb7ada1eb166f097d *src/PresenceAndAbsence.cpp
 0bf2f548dc93f65aa4fe1960b6812cef *src/RcppExports.cpp
 aacf6d43592dbf9913b01d8f7299f65e *src/RemoteSensing.cpp
